@@ -1,34 +1,33 @@
-import React , {useEffect, useRef} from 'react'
+import React , {useEffect} from 'react'
 import spin from './spin.svg'
 import WeatherInfo from './WeatherInfo'
-import axios from 'axios'
 import { Row, Col } from 'react-grid' 
-
+import { useSelector , useDispatch } from 'react-redux'
+import {apiCallWeatherData} from '../actions'
 
 
 
 
 export default function Loading(props){
-    
- let isHidden = true
 
+    const isHidden = useSelector(state => state.isHidden)
+    const weatherData = useSelector(state => state.weatherData)
+    const dispatch = useDispatch()
+    
+    
+
+    
  
  
 
     useEffect(()=> {
        
         
-        axios.get("http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40")
-        .then(response => {
-        
-           const weatherData = response.data
-           isHidden = true
-           return  weatherData
-        })
-        .catch(err => console.error("error",err))
-   
+       
+        dispatch(apiCallWeatherData())
+        weatherData  &&  dispatch(isHidden)
             
-    }, [])
+    }, [dispatch, isHidden, weatherData])
     
 
         
@@ -63,6 +62,7 @@ export default function Loading(props){
         :
         <Row>
         {console.log("loadedWeatherData")}
+        <h1>Hello</h1>
         <WeatherInfo  />
         </Row>
     }
