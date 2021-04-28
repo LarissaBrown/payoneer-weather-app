@@ -1,14 +1,16 @@
 import isCheckedTempReducer from './isCheckedTemp'
-import weatherDataReducer from './weatherData'
+import weatherReducer from './weatherData'
 import isHiddenReducer from './isHidden'
+import isLoadedReducer from './isLoaded'
 
 import {combineReducers} from 'redux'
 
 
 const rootReducer = combineReducers({
     isCheckedTemp: isCheckedTempReducer,
-    weatherData: weatherDataReducer,
-    isHidden: isHiddenReducer
+    weather: weatherReducer,
+    isHidden: isHiddenReducer,
+    isLoaded: isLoadedReducer
 
 })
 

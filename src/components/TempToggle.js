@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector , useDispatch } from 'react-redux'
-
+import { Row } from 'react-grid' 
 
 
 export default function TempToggle(){
@@ -12,10 +12,10 @@ export default function TempToggle(){
 
 
     return (
-<form style={{display: "flex", flexDirection: "row"}}>
+<Row className="radio"> 
 
            
-<div className="radio">
+
   
     <label>
         <input type="radio" value="fahrenheit" checked={isCheckedTemp} onChange={() =>  dispatch(isCheckedTemp)}/>
@@ -28,8 +28,8 @@ export default function TempToggle(){
     Celcius
     </label>
    
-</div>
-</form>
+ 
+</Row>
     )
 
 }
