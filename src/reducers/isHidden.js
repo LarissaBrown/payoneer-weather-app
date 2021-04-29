@@ -1,4 +1,4 @@
-const isHidden = (state = false, action) => {
+const isHiddenReducer = (state = true, action) => {
 
     switch(action.type){
 
@@ -9,4 +9,4 @@ const isHidden = (state = false, action) => {
     }
 }
 
-export default isHidden
+export default isHiddenReducer
