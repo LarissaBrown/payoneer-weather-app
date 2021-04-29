@@ -1,21 +1,21 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
-import './App.css'
+import './App.scss'
 import Loading from "./screens/Loading"
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { blue, brown} from '@material-ui/core/colors';
-import Button from '@material-ui/core/Button';
+
 
 const theme = createMuiTheme({
   palette: {
     primary: {
      
-      main: blue[500],
+      main: brown[100],
     },
     secondary: {
-     
-      main: brown[500],
+      main: blue[500]
+      ,
     },
   },
 });
@@ -23,8 +23,8 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-        <Button color="primary">LightTheme</Button>
-        <Button color="secondary" >DarkTheme</Button>
+        {/* <Button className="theme-button" color="primary">LightTheme</Button>
+        <Button className="theme-button" color="secondary" >DarkTheme</Button> */}
     <Grid container className="App">
       <Loading/>
     </Grid>

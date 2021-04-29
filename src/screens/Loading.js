@@ -1,6 +1,8 @@
 import React , {useEffect} from 'react'
 import spin from './spin.svg'
 import WeatherInfo from './WeatherInfo'
+import Bargraph from "../components/Bargraph";
+import {Carousel} from "../components/Carousel";
 //basic grid layout
 import Grid from '@material-ui/core/Grid';
 import { useSelector , useDispatch } from 'react-redux'
@@ -46,7 +48,7 @@ export default function Loading(){
    
         <Grid container  > 
             <Grid item >
-                <p style={{color: "white", fontSize: "9vw"}}>
+                <p style={{color: "white", fontSize: "7vw"}}>
                     Weather App
                 </p>
             <img src={spin} alt="spin" className="App-spin"/>
@@ -58,10 +60,19 @@ export default function Loading(){
         </Grid>
     
         :
-        <Grid container>
+        <Grid container style={{ alignItems: "center", justifyContent: "center", height: "100%"}}>
+        <Grid  container style={{position:"relative", height: "auto"}}> 
         {console.log("loadedWeatherData")}
-        <WeatherInfo  />
+            <WeatherInfo  />
         </Grid >
+   
+            <Carousel />
+       
+        <Grid container style={{position: "relative", height: "100px"}}></Grid>
+        <Grid container style={{position: "relative", height: "auto"}}>
+            <Bargraph />
+      </Grid>
+        </Grid>
     }
    </React.Fragment>
  )  

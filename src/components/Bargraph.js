@@ -25,7 +25,7 @@ export default function Bargraph(props){
     return(
 
     <Grid container hournum={hours} className="bargraph">
-        
+        <h1 style={{ position: "absolute", top: "10px", color: "white", width: "100%", textAlign: "center" }}>Temperature Throughout the Day</h1>
              <div className="bar-container">
                 <div className="bar" style={{height:"50px"}} key={v4()} hournum={hours[0]} ></div>
             </div>
