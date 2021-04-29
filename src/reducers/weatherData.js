@@ -1,12 +1,12 @@
-const weatherReducer = (state =[], action) => {
+const weatherData = (state =[], action) => {
 
     switch(action.type){
 
         case 'WEATHER_DATA':
-            return [...weatherReducer, action.payload]
+            return !state
         default:
             return state
     }
 }
 
-export default weatherReducer
+export default weatherData

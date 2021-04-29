@@ -1,54 +1,54 @@
 import React , {useEffect} from 'react'
 import spin from './spin.svg'
 import WeatherInfo from './WeatherInfo'
-import Bargraph from "../components/Bargraph";
-import {Carousel} from "../components/Carousel";
-//basic grid layout
-import Grid from '@material-ui/core/Grid';
+import { Row, Col } from 'react-grid' 
 import { useSelector , useDispatch } from 'react-redux'
-import { isLoaded, isHidden, weatherData } from '../actions'
-import axios from 'axios'
+import {apiCallWeatherData} from '../actions'
 
 
 
-export default function Loading(){
-    const hidden = useSelector(state => state.isHidden)
-    const weather = useSelector(state => state.weatherData)
+
+export default function Loading(props){
+
+    const isHidden = useSelector(state => state.isHidden)
+    const weatherData = useSelector(state => state.weatherData)
     const dispatch = useDispatch()
-    let payload =
     
-    useEffect(()=> {
-       
-        // axios.get("http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40")
-        // .then(response => {
-        
-        //   payload = response.data.list
-        //   dispatch(isLoaded())
-        //   dispatch(weatherData(), payload)
-        //   console.log("payload", payload)
-        //   return payload 
-        // })
-        // .catch(err => console.error("error",err))
-        dispatch(isHidden())
-    }, [dispatch])
+    
+
     
  
- console.log("weather", weather)
- console.log("isLoaded", isLoaded)
- console.log(isHidden)
+ 
+
+    useEffect(()=> {
+       
+        
+       
+        dispatch(apiCallWeatherData())
+        weatherData  &&  dispatch(isHidden)
+            
+    }, [dispatch, isHidden, weatherData])
+    
 
         
  return(
-    <React.Fragment>
-  
-  
+    <>
     {
-     hidden
+     isHidden
         ?
    
-        <Grid container  > 
-            <Grid item >
-                <p style={{color: "white", fontSize: "7vw"}}>
+        <Row style={
+            {  
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%", 
+            viewHeight: "80%", 
+            backgroundColor: "#282c34"}
+            }> 
+            <Col >
+                <p style={{color: "white", fontSize: "9vw"}}>
                     Weather App
                 </p>
             <img src={spin} alt="spin" className="App-spin"/>
@@ -56,24 +56,16 @@ export default function Loading(){
                     Loading ...
                 </p>
                
-            </Grid>
-        </Grid>
+            </Col>
+        </Row>
     
         :
-        <Grid container style={{ alignItems: "center", justifyContent: "center", height: "100%"}}>
-        <Grid  container style={{position:"relative", height: "auto"}}> 
+        <Row>
         {console.log("loadedWeatherData")}
-            <WeatherInfo  />
-        </Grid >
-   
-            <Carousel />
-       
-        <Grid container style={{position: "relative", height: "100px"}}></Grid>
-        <Grid container style={{position: "relative", height: "auto"}}>
-            <Bargraph />
-      </Grid>
-        </Grid>
+        <h1>Hello</h1>
+        <WeatherInfo  />
+        </Row>
     }
-   </React.Fragment>
+    </ >
  )  
 }
