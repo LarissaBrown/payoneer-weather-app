@@ -27,7 +27,7 @@ const slideWidth = 30;
 console.log("_localItems", _localItems)
 
 const length = _localItems.length;
-// _localItems.push(..._localItems);
+//  _localItems.push(..._localItems);
 
 const sleep = (ms = 0) => {
     return new Promise((resolve) => setTimeout(resolve, ms));

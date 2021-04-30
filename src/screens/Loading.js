@@ -5,7 +5,7 @@ import Bargraph from "../components/Bargraph";
 import {Carousel} from "../components/Carousel";
 import Grid from '@material-ui/core/Grid';
 import { connect } from "react-redux";
-import { getItemsByVisibilityFilter , getItems} from "../redux/reducers/selectors";
+import { get_LocalItemsByVisibilityFilter , get_LocalItems} from "../redux/reducers/selectors";
 import { VISIBILITY_FILTERS } from "../constants";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchWeather, isLoaded, getPlayers,  eightTimesData} from "../redux/actions"
@@ -13,23 +13,30 @@ import { fetchWeather, isLoaded, getPlayers,  eightTimesData} from "../redux/act
 
 function Loading(){
     const weather = useSelector(state => state.weather)
+    const _localItems = useSelector(state => state._localItems)
     const loaded = useSelector(state => state.isLoaded)
     const fiveDayData = useSelector(state => state.fiveDayData)
-    const eightTimesData = useSelector(state => state.eightTimesData)
+    const eightTimes = useSelector(state => state.eightTimesData)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
 
-        dispatch(fetchWeather())
-        dispatch(isLoaded())
-        dispatch(getPlayers())
-       
+        if(weather === [] && fiveDayData === [] ){
+            dispatch(fetchWeather())
+            return weather
+        }
+     
+        if(weather !== []){
+            dispatch(isLoaded())
+            dispatch(getPlayers())
+            dispatch(eightTimesData())
+            return _localItems && eightTimes
+        } 
 
-
-       
     }, []
     )
+
 
         
  return(

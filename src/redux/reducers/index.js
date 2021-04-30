@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
     fiveDayData: fiveDayDataReducer,
     eightTimesData: eightTimesDataReducer,
     _localItems: _localItemsReducer,
-  
     visibilityFilter
 
 })

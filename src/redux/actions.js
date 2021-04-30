@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {v4} from 'uuid'
 import { 
      EIGHT_TIMES_DATA, 
      FIVE_DAY_DATA , 
@@ -136,9 +137,10 @@ export function graphDateClicked(i){
 
 export function getPlayers(){
   let _localItems = []
-  weather.map((_localItem, index) => {
+  console.log("weatherInGetPlayers", weather)
+  weather.map((_localItem) => {
         
-            let key = index
+            let key = v4()
             let celcius = Math.floor(_localItem.main.temp - 273.15)
             let fahrenheit = Math.floor((_localItem.main.temp - 273.15)* 9/5 + 32)
             let date = _localItem.dt_txt.split(' ')[0]

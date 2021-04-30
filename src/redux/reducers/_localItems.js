@@ -1,15 +1,15 @@
 import { _LOCAL_ITEMS } from "../actionTypes";
-import weatherReducer from './weather'
+import {v4} from 'uuid'
 
 
 const initialState = [
     {
         player: {
-            key: Number,
-            celcius: Number, 
-            fahrenheit: Number,
-            date: Number,                                 
-            desc: ""
+            key: v4(),
+            celcius: 5, 
+            fahrenheit: 35,
+            date: "2021-24-04",                                 
+            desc: "Sunny"
             // image: require(`"src/redux/reducers/assets/${_localItem.weather[0].main}_Munich.jpg"`),
         },
     }
