@@ -1,35 +1,32 @@
-import React, {useEffect} from 'react'
-import { useSelector , useDispatch } from 'react-redux'
-import { Row } from 'react-grid' 
+import React, { useContext } from "react";
 
+import { Row } from "react-grid";
+import { ContextStore } from "../ContextStore";
 
-export default function TempToggle(){
+export function TempToggle() {
+  const { isTempChecked, handleKelvin } = useContext(ContextStore);
 
-    const isCheckedTemp = useSelector(state => state.isCheckedTemp)
-    const dispatch = useDispatch()
-  
-  
-   
+  return (
+    <Row className="radio">
+      <label>
+        <input
+          type="radio"
+          value="fahrenheit"
+          checked={isTempChecked}
+          onChange={() => handleKelvin()}
+        />
+        Fahrenheit
+      </label>
 
-
-
-    return (
-<Row className="radio">
-  
-    <label>
-        <input type="radio" value="fahrenheit" checked={isCheckedTemp} onChange={() => dispatch({type: 'IS_CHECKED_TEMP'}) }/>
-    Fahrenheit
-    </label>
-
-
-    <label>
-        <input type="radio" value="celcius" checked={!isCheckedTemp} onChange={() => dispatch({type: 'IS_CHECKED_TEMP'}) }/>
-    Celcius
-    </label>
-   
- 
-</Row>
-    )
-
+      <label>
+        <input
+          type="radio"
+          value="celcius"
+          checked={!isTempChecked}
+          onChange={() => handleKelvin()}
+        />
+        Celcius
+      </label>
+    </Row>
+  );
 }
-
