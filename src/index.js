@@ -4,18 +4,19 @@ import App from "./App"
 import { Provider } from 'react-redux'
 import store from './store'
 
-store.dispatch({ type: 'todos/todoAdded', payload: 'Learn about actions' })
+store.dispatch({ type: '_localItems/_localItemAdded', payload: 'God help me!' })
 // log: 'Hi!'
 
 console.log('State after dispatch: ', store.getState())
-// log: {todos: [...], filters: {status, colors}, meaningOfLife: 42}
+// log: {_localItems: [...], filters: {status, colors}}
 
-
+const rootElement =  document.getElementById('root')
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
+  rootElement
+ 
 );
 
 

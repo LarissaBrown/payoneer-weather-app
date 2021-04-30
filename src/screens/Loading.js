@@ -3,39 +3,33 @@ import spin from './spin.svg'
 import WeatherInfo from './WeatherInfo'
 import Bargraph from "../components/Bargraph";
 import {Carousel} from "../components/Carousel";
-//basic grid layout
 import Grid from '@material-ui/core/Grid';
-import { useSelector , useDispatch } from 'react-redux'
-import { isLoaded, isHidden, weatherData } from '../actions'
-import axios from 'axios'
+import { connect } from "react-redux";
+import { getItemsByVisibilityFilter , getItems} from "../redux/reducers/selectors";
+import { VISIBILITY_FILTERS } from "../constants";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchWeather, isLoaded, getPlayers,  eightTimesData} from "../redux/actions"
 
 
+function Loading(){
+    const weather = useSelector(state => state.weather)
+    const loaded = useSelector(state => state.isLoaded)
+    const fiveDayData = useSelector(state => state.fiveDayData)
+    const eightTimesData = useSelector(state => state.eightTimesData)
 
-export default function Loading(){
-    const hidden = useSelector(state => state.isHidden)
-    const weather = useSelector(state => state.weatherData)
     const dispatch = useDispatch()
-    let payload =
-    
-    useEffect(()=> {
+
+    useEffect(() => {
+
+        dispatch(fetchWeather())
+        dispatch(isLoaded())
+        dispatch(getPlayers())
        
-        // axios.get("http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40")
-        // .then(response => {
-        
-        //   payload = response.data.list
-        //   dispatch(isLoaded())
-        //   dispatch(weatherData(), payload)
-        //   console.log("payload", payload)
-        //   return payload 
-        // })
-        // .catch(err => console.error("error",err))
-        dispatch(isHidden())
-    }, [dispatch])
-    
- 
- console.log("weather", weather)
- console.log("isLoaded", isLoaded)
- console.log(isHidden)
+
+
+       
+    }, []
+    )
 
         
  return(
@@ -43,11 +37,11 @@ export default function Loading(){
   
   
     {
-     hidden
+     loaded
         ?
    
         <Grid container  > 
-            <Grid item >
+            <Grid  >
                 <p style={{color: "white", fontSize: "7vw"}}>
                     Weather App
                 </p>
@@ -77,3 +71,9 @@ export default function Loading(){
    </React.Fragment>
  )  
 }
+export default connect(state => ({
+    weather: state.weather,
+    fiveDayData: state.fiveDayData,
+    isLoaded: state.isLoaded,
+    eightTimesData: state.eightTimesData
+  }))(Loading)

@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import TempToggle from "../components/TempToggle";
 import { useSelector, useDispatch } from "react-redux";
-import { isLoaded } from "../actions";
-import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
 
 export default function WeatherInfo() {
-  const weatherData = useSelector((state) => state.weatherData);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(isLoaded);
-  }, [dispatch, weatherData]);
+  
+
 
   return (
     <React.Fragment>
    
-   <Grid container className="App">
+   <Grid container >
       <h1 style={{ paddingTop: "5%", color: "white" ,fontSize: "3em", width: "100%", textAlign: "center" }}>The Weather Report Munich</h1>
       <h2 style={{  color:'rgb(18, 48, 75)', padding: "40px" , fontWeight: "lighter"}}>
         “If enough people think of a thing and work hard enough at it, I guess
