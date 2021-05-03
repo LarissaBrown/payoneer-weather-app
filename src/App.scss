@@ -14,6 +14,7 @@ html {
 body {
   background-image: url("./screens/ibrahim-mohamed-k6WXcWZMd-k-unsplash.jpg");
   display: flex;
+  position: relative;
   padding: 100px;
   flex-direction: column;
   align-items: center;
@@ -39,7 +40,11 @@ body {
   background-color: rgba(245, 245, 245, 0.404);
   z-index: 0;
 }
+audio {
+  padding: 10px;
+  margin-left: 6%;
 
+}
 .App-spin {
   height: 50vmin;
   pointer-events: none;

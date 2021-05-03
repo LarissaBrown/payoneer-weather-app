@@ -1,11 +1,13 @@
 import React from "react";
-import { TempToggle } from "../components/TempToggle";
-
+import TempToggle from "../components/TempToggle";
+// import Bargraph from "../components/Bargraph";
+import Carousel from "../components/Carousel";
 import Grid from "@material-ui/core/Grid";
 
 export default function WeatherInfo() {
+
   return (
-    <React.Fragment>
+    <>
       <Grid container>
         <h1
           style={{
@@ -32,7 +34,15 @@ export default function WeatherInfo() {
         <Grid container>
           <TempToggle />
         </Grid>
+        <Carousel />
+        <Grid
+          container
+          style={{ position: "relative", height: "100px" }}
+        ></Grid>
+        <Grid container>
+          {/* <Bargraph /> */}
+        </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }

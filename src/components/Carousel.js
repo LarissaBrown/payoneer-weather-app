@@ -1,32 +1,26 @@
-import React, { useContext, useEffect } from "react";
+import React, { useReducer, useEffect, useContext } from "react";
 import CarouselSlideItem from "./CarouselSlideItem";
-import { ContextStore } from "../ContextStore";
+import { CarouselItemsReducer, ToggleReducer } from '../state/reducer'
+import Context from "../state/context"
+import { getPlayers } from '../state/actions';
 
-export const Carousel = () => {
-  const {
-    _carouselItems,
-    setIsHidden,
-    getPlayers,
-    weatherData,
-    weatherFive,
-    fiveDayWeatherSet,
-  } = useContext(ContextStore);
-  const slideWidth = 30;
 
-  useEffect(() => {
-    getPlayers(weatherData);
+export default function Carousel(){
+const slideWidth = 30;
+const { initialState } = useContext(Context);
+const [ carouselWeatherItems, dispatch, isHidden, isTempChecked
+] = useReducer(
+  CarouselItemsReducer, 
+  ToggleReducer, 
+  initialState
+  );
 
-    fiveDayWeatherSet();
+ dispatch(getPlayers, carouselWeatherItems)
 
-    setIsHidden(false);
-    console.log("_carouselItems", _carouselItems);
-    return weatherFive && _carouselItems;
-  });
+  const length = carouselWeatherItems.length;
+  console.log("carouselWeatherItems.push", carouselWeatherItems)
 
-  console.log("carouselItems", _carouselItems);
 
-  const length = _carouselItems.length;
-  _carouselItems.push(..._carouselItems);
 
   const sleep = (ms = 0) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,12 +28,11 @@ export const Carousel = () => {
 
   const createCarouselItem = (pos, i) => {
     let idx = i;
-    console.log("idxPLAYER", _carouselItems[idx]);
     const carouselItem = {
       styles: {
         transform: `translateX(${pos * slideWidth}rem)`,
       },
-      player: _carouselItems[idx].player,
+      player: carouselWeatherItems[idx].player,
     };
 
     switch (pos) {
@@ -60,7 +53,7 @@ export const Carousel = () => {
     return carouselItem;
   };
 
-  const keys = Array.from(Array(_carouselItems.length).keys());
+  const keys = Array.from(Array(carouselWeatherItems.length).keys());
 
   const [carouselItems, setcarouselItems] = React.useState(keys);
   const [isTicking, setIsTicking] = React.useState(false);
@@ -103,9 +96,6 @@ export const Carousel = () => {
     setActiveIdx((length - (carouselItems[0] % length)) % length) // prettier-ignore
   }, [carouselItems, length]);
 
-  console.log("activeIdx", activeIdx);
-  console.log("carouselItems[0]", carouselItems[0]);
-  console.log("length-1", length - 1);
 
   return (
     <div className="carousel__wrap">

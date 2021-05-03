@@ -1,16 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 import Paper from "@material-ui/core/Paper";
-import { ContextStore } from "../ContextStore";
+
 
 const CarouselSlideItem = (props) => {
-  const {weatherData} = useContext(ContextStore);
-  // eslint-disable-next-line
-  const { item } = props;
-  console.log("weatherDataSlideItem", weatherData)
-  console.log("iTEm", item);
-  console.log(item.player.date);
-  console.log(item.player.celcius);
-  console.log(item.player.fahrenheit);
+    const {item} = props
 
   return (
     <Paper>
@@ -28,3 +21,18 @@ const CarouselSlideItem = (props) => {
   );
 };
 export default CarouselSlideItem;
+
+
+
+
+
+
+
+// //   const {weatherData} = useContext(ContextStore);
+//   // eslint-disable-next-line
+//   const { item } = props;
+//   console.log("weatherDataSlideItem", weatherData)
+//   console.log("iTEm", item);
+//   console.log(item.player.date);
+//   console.log(item.player.celcius);
+//   console.log(item.player.fahrenheit);

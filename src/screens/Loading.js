@@ -1,47 +1,33 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useReducer } from "react";
 import spin from "./spin.svg";
-import WeatherInfo from "./WeatherInfo";
-import Bargraph from "../components/Bargraph";
-import { Carousel } from "../components/Carousel";
 import Grid from "@material-ui/core/Grid";
-import { ContextStore } from "../ContextStore";
-// import axios from 'axios'
+import { getPlayers } from "../state/actions"
+import { CarouselItemsReducer, ToggleReducer }from '../state/reducer'
+
 
 export default function Loading() {
-  // const [result, setResult] = useState([]);
-  const {
-    weatherData,
-    setWeatherData,
-    isHidden,
-    setCityName,
-    setIsHidden,
-  } = useContext(ContextStore);
+ 
+  const [ carouselWeatherItems, dispatch, isHidden, isTempChecked
+] = useReducer(
+  CarouselItemsReducer, 
+  ToggleReducer
+  );
 
-  useEffect(() => {
-    async function fetchWeatherData() {
-      try {
-        const response = await fetch(
-          "http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40"
-        );
-        const json = await response.json();
-        console.log("json", json);
-        console.log("json.list", json.list);
-        setWeatherData(json.list);
-        console.log("weatherData", weatherData);
-        setIsHidden(false);
-        return weatherData;
-      } catch (err) {
-        console.log("error", err);
-      }
-    }
-    if (weatherData === []) {
-      fetchWeatherData();
-    }
-  }, [weatherData, setWeatherData, setIsHidden, setCityName]);
+  
+useEffect(()=> {
+  
+ 
+    dispatch(getPlayers())
+
+  console.log("isHidden", isHidden)
+  console.log("isTempChecked", isTempChecked)
+   console.log("carouselWeatherItems in useEffect", carouselWeatherItems)
+
+}, [dispatch, carouselWeatherItems])
 
   return (
-    <React.Fragment>
-      {isHidden ? (
+    
+     
         <Grid container>
           <Grid>
             <p style={{ color: "white", fontSize: "7vw" }}>Weather App</p>
@@ -49,31 +35,7 @@ export default function Loading() {
             <p style={{ color: "white", fontSize: "4vw" }}>Loading ...</p>
           </Grid>
         </Grid>
-      ) : (
-        <Grid
-          container
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-          }}
-        >
-          <Grid container style={{ position: "relative", height: "auto" }}>
-            {console.log("loadedWeatherData")}
-            <WeatherInfo />
-          </Grid>
-
-          <Carousel />
-
-          <Grid
-            container
-            style={{ position: "relative", height: "100px" }}
-          ></Grid>
-          <Grid container style={{ position: "relative", height: "auto" }}>
-            <Bargraph />
-          </Grid>
-        </Grid>
-      )}
-    </React.Fragment>
+   
+    
   );
 }

@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
-
+import React, {useReducer} from "react";
 import { Row } from "react-grid";
-import { ContextStore } from "../ContextStore";
+import { ToggleReducer } from "../state/reducer"
 
-export function TempToggle() {
-  const { isTempChecked, handleKelvin } = useContext(ContextStore);
 
+
+
+export default function TempToggle() {
+ 
+  const [ 
+    isTempChecked
+  , dispatch
+] = useReducer(
+  ToggleReducer,
+  );
   return (
     <Row className="radio">
       <label>
@@ -13,7 +20,7 @@ export function TempToggle() {
           type="radio"
           value="fahrenheit"
           checked={isTempChecked}
-          onChange={() => handleKelvin()}
+          onChange={() => dispatch({action: "CHECKED"})}
         />
         Fahrenheit
       </label>
@@ -23,7 +30,7 @@ export function TempToggle() {
           type="radio"
           value="celcius"
           checked={!isTempChecked}
-          onChange={() => handleKelvin()}
+          onChange={() => dispatch({action: "CHECKED"})}
         />
         Celcius
       </label>
