@@ -1,11 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 import TempToggle from "../components/TempToggle";
-import { useSelector, useDispatch } from "react-redux";
 import Grid from '@material-ui/core/Grid';
 
 export default function WeatherInfo() {
 
-  
+ 
 
 
   return (

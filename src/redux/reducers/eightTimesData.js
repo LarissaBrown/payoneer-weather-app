@@ -5,9 +5,9 @@ function eightTimesDataReducer(state = [] , action){
 
     switch(action.type){
 
-        case 'EIGHT_TIMES_DATA':
-            const { id, content} = action.payload;
-            return [...eightTimesDataReducer, action.payload]
+        case 'LOAD_EIGHT_TIMES_DATA':
+            const { oneDayWeatherData, eightTimesData } = action.payload;
+            return [oneDayWeatherData, eightTimesData]
         default:
             return state
 }

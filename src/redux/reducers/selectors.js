@@ -1,12 +1,12 @@
-import { VISIBILITY_FILTERS } from "../../constants";
+// import { VISIBILITY_FILTERS } from "../../constants";
 
-export const get_localItemsState = store => store._localItems;
+// export const get_localItemsState = store => store._localItems;
 
-export const get_localItemsList = store =>
-  get_localItemsState(store) ? get_localItemsState(store).allKeys : [];
+// export const get_localItemsList = store =>
+//   get_localItemsState(store) ? get_localItemsState(store).allKeys : [];
 
-export const getItemByKey = (store, key) =>
-  get_localItemsState(store) ? { ...get_localItemsState(store).byKeys[key], key } : {};
+// export const getItemByKey = (store, key) =>
+//   get_localItemsState(store) ? { ...get_localItemsState(store).byKeys[key], key } : {};
 
 /**
  * example of a slightly more complex selector

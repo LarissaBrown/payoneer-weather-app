@@ -3,7 +3,7 @@ const isLoadedReducer = (state = true, action) => {
     switch(action.type){
 
         case 'IS_LOADED':
-            return false 
+            return !state
         default:
             return state
     }

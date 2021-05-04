@@ -3,8 +3,9 @@ const fiveDayDataReducer = (state = [] , action) => {
 
     switch(action.type){
 
-        case 'IS_FIVE_DAY_DATA':
-            return [action.payload]
+        case 'FIVE_DAY_DATA':
+            const {fiveDayData} = action.payload
+            return [fiveDayData]
         default:
             return state
 }
