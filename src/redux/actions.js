@@ -1,80 +1,75 @@
 import axios from "axios"
 import {v4} from 'uuid'
 import { 
+     ONE_DAY_WEATHER_DATA,
      LOAD_EIGHT_TIMES_DATA, 
      FIVE_DAY_DATA , 
      IS_LOADED, 
      IS_HIDDEN, 
      LOAD_WEATHER,
-    //  SET_FILTER, 
+     SET_FILTER, 
      IS_CHECKED_TEMP,
      GRAPH_DATE_CLICKED,
     _LOCAL_ITEMS
   } 
      from "./actionTypes";
 
-// let nextId = 0;
+let nextId = 0;
 
 
 
 
 
 export const isHidden = () => ({
-    type: IS_HIDDEN,
+    type: IS_HIDDEN, 
     payload: { isHidden }
 
 
 
 });
     
-
-export const isLoaded = () => ({
-    type: IS_LOADED,
-    payload: { isLoaded }
-
-
-});
-
-
-
 export const isCheckedTemp = ()=> {
     return {
-    type: IS_CHECKED_TEMP,
-    payload: { isCheckedTemp }
+    type: IS_CHECKED_TEMP, 
+    payload: { isCheckedTemp } 
     }
 
 };
-export function loadWeather(){
+export const loadWeather = (isLoaded) => {
        
-  return function (dispatch){
-      axios.get("http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40")
+  return async dispatch => {
+      await axios.get("http://api.openweathermap.org/data/2.5/forecast?q=Munich,de&APPID=75f972b80e26f14fe6c920aa6a85ad57&cnt=40")
           .then(response => {
+            let weather = response.data.list
+            console.log("weatherAxios", weather)
               dispatch({
                   type: LOAD_WEATHER,
-                  payload: {weather: response.data.list},
+                  payload: {weather}
               })
               dispatch({
-                  type: IS_LOADED,
-                  payload: {isLoaded}})
+                  type: LOAD_WEATHER,
+                  payload: {isLoaded}
+                })
           })
           .catch(err => {
               console.log(err)
           })
+         
   }
 
 }
+ export const setFilter = filter => ({ type: SET_FILTER, payload: { filter } });
 
-// export const setFilter = filter => ({ type: SET_FILTER, payload: { filter } });
 
-let fiveDayData = []
 
 export const fetchFiveDayData = (weather) => {
  
       console.log("weather", weather)
-      weather.map((item, index )=> {
+      
+      function fiveDayData(weather, item, index ) {
 
         //first item
-       const currentDate = item.dt_txt.split(' ')[0] 
+       const currentDate = item.dt_txt.split(' ')[0]
         //next item
        const nextDate = weather[index + 1].dt_txt.split(' ')[0]
       //  console.log(weather[index + 1].dt_txt.split(' ')[0])
@@ -91,26 +86,34 @@ export const fetchFiveDayData = (weather) => {
         }
       }
       return fiveDayData
-    })
+    }
    
   
     console.log("fiveDayData", fiveDayData)
  
-
-
-    
    }
-   
 
-  export const loadEightTimesData = (weather) => {
-     let oneDayWeatherData = []
-     let eightTimesData = []
 
-      weather.map(item => {
-      if(item.dt_txt.split(' ')[1] === "00:00:00"){
-        oneDayWeatherData.push(item)
-        return {oneDayWeatherData}
-      } 
+   export const fetchOneDayWeatherData = (weather)=>{
+   let oneDayWeatherData = weather.map(item => 
+
+      item.dt_txt.split(' ')[1] === "00:00:00" &&  item 
+        
+    
+    )
+    return {
+      type: ONE_DAY_WEATHER_DATA,
+      payload: {oneDayWeatherData}
+   }
+  
+  }
+
+  export const loadEightTimesData = (oneDayWeatherData) => {
+ 
+    
+
+     const  eightTimesData = oneDayWeatherData.map(item => {
+    
     
         if (eightTimesData === []){
             eightTimesData.push(item.dt_txt.split(' ')[0])
@@ -125,7 +128,7 @@ export const fetchFiveDayData = (weather) => {
      
     return {
       type: LOAD_EIGHT_TIMES_DATA,
-      payload: {oneDayWeatherData, eightTimesData}
+      payload: {eightTimesData}
     }
   }
   
@@ -159,10 +162,10 @@ export function graphDateClicked(i, weather){
 
 
 
-export function getPlayers(fiveDayData){
-  let _localItems = []
+export function getPlayers(fiveDayData, _localItems){
+ 
   console.log("fiveDayDataInGetPlayers", fiveDayData)
-  fiveDayData.map((_localItem) => {
+   _localItems = fiveDayData.map((_localItem) => {
         
             let key = v4()
             let celcius = Math.floor(_localItem.main.temp - 273.15)
@@ -170,18 +173,18 @@ export function getPlayers(fiveDayData){
             let date = _localItem.dt_txt.split(' ')[0]
             let desc = _localItem.weather[0].main
 
-             _localItems.push( ..._localItems, { player: {
+             return { player: {
                 key: key,
                 celcius: celcius,
                 fahrenheit: fahrenheit,
                 date: date,                               
-                desc: desc
-                // image: require(`"src/redux/reducers/assets/${_localItem.weather[0].main}_Munich.jpg"`),
+                desc: desc,
+                image: require(`"/src/redux/reducers/assets/${_localItem.weather[0].main}_Munich.jpg"`),
             
                 }
               }
-             )
-            return _localItems
+             
+           
             }
             )
             return {

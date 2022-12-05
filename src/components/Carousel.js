@@ -25,7 +25,7 @@ const Carousel = () => {
   console.log("_localItems", _localItems);
 
   const length = _localItems.length;
-  //  _localItems.push(..._localItems);
+  _localItems.push(..._localItems);
 
   const sleep = (ms = 0) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -81,17 +81,15 @@ const Carousel = () => {
     }
   };
 
-  // const handleDotClick = (i, localItems) => {
-  //     if(i === activeIdx-1){
-  //         return
-  //     }
-  //     if(i === localItems.length-1){
-  //         return
-  //     }
-  //     else if (i < activeIdx) prevClick(activeIdx - i);
-  //     else if (i > activeIdx) nextClick(i - activeIdx);
-
-  // };
+  const handleDotClick = (i, localItems) => {
+    if (i === activeIdx - 1) {
+      return;
+    }
+    if (i === localItems.length - 1) {
+      return;
+    } else if (i < activeIdx) prevClick(activeIdx - i);
+    else if (i > activeIdx) nextClick(i - activeIdx);
+  };
 
   React.useEffect(() => {
     if (isTicking) sleep(300).then(() => setIsTicking(false));
@@ -142,16 +140,15 @@ const Carousel = () => {
           </ul>
         </div>
 
-        {/* <div className="carousel__dots">
-                    {localItems.slice(0, length).map((pos, i) => (
-                       
-                        <button
-                            key={i}
-                            onClick={() => handleDotClick(i), localItems}
-                            className={i === activeIdx ? 'dot active' : 'dot'}
-                        />
-                    ))}
-                </div> */}
+        <div className="carousel__dots">
+          {localItems.slice(0, length).map((pos, i) => (
+            <button
+              key={i}
+              onClick={(() => handleDotClick(i), localItems)}
+              className={i === activeIdx ? "dot active" : "dot"}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -16,12 +16,15 @@ export default function Loading() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    return function (dispatch) {
-      loadWeather();
+    // weather === {} ? dispatch(loadWeather(isLoaded))
+    // :
+    // dispatch(fetchFiveDayData(weather))
 
-      fetchFiveDayData(weather);
-    };
-  }, [weather, dispatch]);
+    // weather !== {} && dispatch(fetchFiveDayData(weather))
+   
+
+  
+  }, [weather, isLoaded, dispatch]);
 
   return (
     <>
